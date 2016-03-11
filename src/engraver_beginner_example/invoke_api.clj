@@ -4,14 +4,14 @@
   (:gen-class))
 
 (defn -main [command job & args]
-  (cond (= command :submit-job)
-        (cond (= job :sample)
+  (cond (= command "submit-job")
+        (cond (= job "sample")
               (s/-main)
 
               :else
               (println "Unknown job " job))
 
-        (= command :kill-job)
+        (= command "kill-job")
         (let [peer-config (c/prod-peer-config)]
           (onyx.api/kill-job peer-config job))
 
