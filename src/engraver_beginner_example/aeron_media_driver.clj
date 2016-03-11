@@ -1,9 +1,9 @@
 (ns engraver-beginner-example.aeron-media-driver
-  (:gen-class)
   (:require [clojure.core.async :refer [chan <!!]]
             [clojure.tools.cli :refer [parse-opts]])
   (:import [uk.co.real_logic.aeron Aeron$Context]
-           [uk.co.real_logic.aeron.driver MediaDriver MediaDriver$Context ThreadingMode]))
+           [uk.co.real_logic.aeron.driver MediaDriver MediaDriver$Context ThreadingMode])
+  (:gen-class))
 
 (def cli-options
   [["-t" "--threading-mode THREADING-MODE" "Aeron media driver threading mode: shared or dedicated or shared-network"

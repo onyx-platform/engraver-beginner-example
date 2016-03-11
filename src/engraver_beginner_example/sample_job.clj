@@ -1,7 +1,8 @@
 (ns engraver-beginner-example.sample-job
   (:require [engraver-beginner-example.configuration :as c]
             [onyx.plugin.kafka]
-            [onyx.api]))
+            [onyx.api])
+  (:gen-class))
 
 (def workflow
   [[:read-input :punctuate-message]
