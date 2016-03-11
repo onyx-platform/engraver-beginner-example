@@ -3,8 +3,8 @@ MAINTAINER Excellent Person <fill@me.in>
 
 CMD ["/sbin/my_init"]
 
-RUN mkdir /etc/service/onyx_peer
-RUN mkdir /etc/service/aeron
+RUN mkdir -p /etc/service/onyx_peer
+RUN mkdir -p /etc/service/aeron
 
 ADD target/engraver-beginner-example-standalone.jar /srv/engraver-beginner-example.jar
 
