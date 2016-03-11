@@ -29,5 +29,5 @@
    :onyx.messaging.aeron/embedded-driver? false
    :onyx/id (System/getenv "ONYX_ID")
    :onyx.messaging/bind-addr (System/getenv "BIND_ADDR")
-   :onyx.messaging/peer-port (System/getenv "PEER_PORT")
+   :onyx.messaging/peer-port (Integer/parseInt (System/getenv "PEER_PORT"))
    :zookeeper/address (System/getenv "ZK_CONN_STR")})
