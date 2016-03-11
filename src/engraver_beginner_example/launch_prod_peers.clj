@@ -2,7 +2,8 @@
   (:require [engraver-beginner-example.sample-job]
             [engraver-beginner-example.functions]
             [engraver-beginner-example.configuration :as c]
-            [onyx.plugin.kafka]))
+            [onyx.plugin.kafka])
+  (:gen-class))
 
 (defn standard-out-logger
   "Logger to output on std-out, for use with docker-compose"
