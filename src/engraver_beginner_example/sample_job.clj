@@ -32,7 +32,7 @@
    :onyx/doc "Writes segments to a core.async channel"})
 
 (defn kafka-input [{:keys [topic zk-addr]}]
-  {:onyx/name :read-messages
+  {:onyx/name :read-input
    :onyx/plugin :onyx.plugin.kafka/read-messages
    :onyx/type :input
    :onyx/medium :kafka
@@ -46,7 +46,7 @@
    :onyx/doc "Reads messages from a Kafka topic"})
 
 (defn kafka-output [{:keys [topic zk-addr]}]
-  {:onyx/name :write-messages
+  {:onyx/name :write-output
    :onyx/plugin :onyx.plugin.kafka/write-messages
    :onyx/type :output
    :onyx/medium :kafka
@@ -58,7 +58,7 @@
 (defn build-catalog [mode opts]
   [(if (= mode :dev)
      core-async-input-task
-     (kafka-input (:read-messages opts)))
+     (kafka-input (:read-input opts)))
 
    {:onyx/name :punctuate-message
     :onyx/fn :engraver-beginner-example.functions/punctuate-message
@@ -82,7 +82,7 @@
 
    (if (= mode :dev)
      core-async-output-task
-     (kafka-output (:write-message opts)))])
+     (kafka-output (:write-output opts)))])
 
 (def flow-conditions
   [{:flow/from :punctuate-message
@@ -131,10 +131,10 @@
 
 (defn -main [& args]
   (let [peer-config (c/prod-peer-config)
-        catalog-opts {:read-messages
+        catalog-opts {:read-input
                       {:topic "input-stream"
                        :zk-addr (:zookeeper/address peer-config)}
-                      :write-messages
+                      :write-output
                       {:topic "output-stream"
                        :zk-addr (:zookeeper/address peer-config)}}
         job {:workflow workflow
