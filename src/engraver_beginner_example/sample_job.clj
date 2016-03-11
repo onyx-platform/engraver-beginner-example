@@ -30,7 +30,7 @@
    :onyx/max-peers 1
    :onyx/doc "Writes segments to a core.async channel"})
 
-(defn kafka-input [topic zk-addr]
+(defn kafka-input [{:keys [topic zk-addr]}]
   {:onyx/name :read-messages
    :onyx/plugin :onyx.plugin.kafka/read-messages
    :onyx/type :input
@@ -44,7 +44,7 @@
    :onyx/batch-size batch-size
    :onyx/doc "Reads messages from a Kafka topic"})
 
-(defn kafka-output [topic zk-addr]
+(defn kafka-output [{:keys [topic zk-addr]}]
   {:onyx/name :write-messages
    :onyx/plugin :onyx.plugin.kafka/write-messages
    :onyx/type :output
@@ -129,9 +129,16 @@
      kafka-output-lifecycle)))
 
 (defn -main [& args]
-  (let [job {:workflow workflow
-             :catalog (build-catalog :prod {})
+  (let [peer-config (c/prod-peer-config)
+        catalog-opts {:read-messages
+                      {:topic "input-stream"
+                       :zk-addr (:zookeeper/address peer-config)}
+                      :write-messages
+                      {:topic "output-stream"
+                       :zk-addr (:zookeeper/address peer-config)}}
+        job {:workflow workflow
+             :catalog (build-catalog :prod catalog-opts)
              :flow-conditions flow-conditions
              :lifecycles (build-lifecycles :prod)
              :task-scheduler :onyx.task-scheduler/balanced}]
-    (onyx.api/submit-job (c/prod-peer-config) job)))
+    (onyx.api/submit-job peer-config job)))
