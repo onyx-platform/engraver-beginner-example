@@ -19,6 +19,12 @@ ADD target/engraver-beginner-example-standalone.jar /srv/engraver-beginner-examp
 ADD script/run_peers.sh /etc/service/onyx_peer/run
 ADD script/run_aeron.sh /etc/service/aeron/run
 
+ADD script/submit_job.sh /srv/submit_job.sh
+ADD script/submit_job.sh /srv/kill_job.sh
+
+RUN chmod +x /srv/submit_job.sh
+RUN chmod +x /srv/kill_job.sh
+
 EXPOSE 40200/tcp
 EXPOSE 40200/udp
 

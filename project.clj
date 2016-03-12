@@ -10,8 +10,7 @@
                  [org.clojure/tools.cli "0.3.3"]
                  [org.onyxplatform/onyx "0.8.11"]
                  [org.onyxplatform/onyx-kafka "0.8.11.0"]]
-  :profiles {:uberjar {:aot [engraver-beginner-example.aeron-media-driver
-                             engraver-beginner-example.launch-prod-peers]
+  :profiles {:uberjar {:aot :all
                        :uberjar-name "engraver-beginner-example-standalone.jar"}
              :dev {:dependencies [[org.clojure/tools.namespace "0.2.11"]
                                   [lein-project-version "0.1.0"]]
