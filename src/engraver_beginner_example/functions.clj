@@ -12,6 +12,12 @@
 (defn long-message? [event before after all-after]
   (>= (count (:message before)) 40))
 
+(defn deserialize-message [bytes]
+  (read-string (String. bytes "UTF-8")))
+
+(defn serialize-message [segment]
+  (.getBytes (pr-str segment)))
+
 (def input-chan (atom nil))
 
 (def output-chan (atom nil))

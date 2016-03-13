@@ -41,7 +41,9 @@
    :kafka/zookeeper zk-addr
    :kafka/offset-reset :smallest
    :kafka/force-reset? false
-   :onyx/n-peers 1
+   :kafka/deserializer-fn :engraver-beginner-example.functions/deserialize-message
+   :onyx/min-peers 1
+   :onyx/max-peers 1
    :onyx/batch-size batch-size
    :onyx/doc "Reads messages from a Kafka topic"})
 
@@ -52,6 +54,7 @@
    :onyx/medium :kafka
    :kafka/topic topic
    :kafka/zookeeper zk-addr
+   :kafka/serializer-fn :engraver-beginner-example.functions/serialize-message
    :onyx/batch-size batch-size
    :onyx/doc "Writes messages to a Kafka topic"})
 
