@@ -9,7 +9,7 @@
                  [org.clojure/clojure "1.7.0"]
                  [org.clojure/tools.cli "0.3.3"]
                  [org.onyxplatform/onyx "0.8.11"]
-                 [org.onyxplatform/onyx-kafka "0.8.11.0"]]
+                 [org.onyxplatform/onyx-kafka "0.8.11.1"]]
   :profiles {:uberjar {:aot :all
                        :uberjar-name "engraver-beginner-example-standalone.jar"}
              :dev {:dependencies [[org.clojure/tools.namespace "0.2.11"]

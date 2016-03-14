@@ -116,6 +116,9 @@
 
 (def kafka-input-lifecycle
   [{:lifecycle/task :read-input
+    :lifecycle/calls :engraver-beginner-example.functions/kafka-topic-setup}
+
+   {:lifecycle/task :read-input
     :lifecycle/calls :onyx.plugin.kafka/read-messages-calls}])
 
 (def kafka-output-lifecycle

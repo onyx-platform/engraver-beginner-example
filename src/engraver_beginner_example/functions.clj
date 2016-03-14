@@ -1,4 +1,6 @@
-(ns engraver-beginner-example.functions)
+(ns engraver-beginner-example.functions
+  (:require [clj-kafka.admin :as admin]
+            [clj-kafka.zk :refer [brokers broker-list]]))
 
 (defn punctuate-message [segment]
   (update-in segment [:message] (fn [x] (str x "!"))))
@@ -33,3 +35,18 @@
 
 (def writer-ch-calls
   {:lifecycle/before-task-start inject-output-ch})
+
+(defn create-input-topic [event lifecycle]
+  (let [task-map (:onyx.core/task-map event)
+        topic (:kafka/topic task-map)
+        zk-addr (:kafka/zookeeper task-map)
+        cfg {:partitions 1
+             :replication-factor 1
+             :config {"cleanup.policy" "compact"}}]
+    (with-open [zk (admin/zk-client zk-addr)]
+      (when-not (admin/topic-exists? zk topic)
+        (admin/create-topic zk topic cfg)))
+    {}))
+
+(def kafka-topic-setup
+  {:lifecycle/before-task-start create-input-topic})

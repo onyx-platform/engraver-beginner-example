@@ -1,4 +1,5 @@
-(ns engraver-beginner-example.configuration)
+(ns engraver-beginner-example.configuration
+  (:require [taoensso.timbre.appenders.3rd-party.rotor :as rotor]))
 
 (defn dev-env-config [onyx-tenancy-id]
   {:onyx/id onyx-tenancy-id
@@ -30,4 +31,10 @@
    :onyx/id (System/getenv "ONYX_ID")
    :onyx.messaging/bind-addr (System/getenv "BIND_ADDR")
    :onyx.messaging/peer-port (Integer/parseInt (System/getenv "PEER_PORT"))
-   :zookeeper/address (System/getenv "ZK_CONN_STR")})
+   :zookeeper/address (System/getenv "ZK_CONN_STR")
+   :onyx.log/config {:appenders
+                     {:rotor (-> (rotor/rotor-appender
+                                  {:path "onyx.log"
+                                   :max-size (* 512 102400)
+                                   :backlog 5})
+                                 (assoc :min-level :info))}}})
