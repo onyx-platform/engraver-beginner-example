@@ -42,10 +42,12 @@
         zk-addr (:kafka/zookeeper task-map)
         cfg {:partitions 1
              :replication-factor 1
-             :config {"cleanup.policy" "compact"}}]
+             :config {"cleanup.policy" "compact"}}
+        creation-timeout 3000]
     (with-open [zk (admin/zk-client zk-addr)]
       (when-not (admin/topic-exists? zk topic)
-        (admin/create-topic zk topic cfg)))
+        (admin/create-topic zk topic cfg)
+        (await-for creation-timeout)))
     {}))
 
 (def kafka-topic-setup
