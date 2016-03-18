@@ -14,4 +14,5 @@
                        :uberjar-name "engraver-beginner-example-standalone.jar"}
              :dev {:dependencies [[org.clojure/tools.namespace "0.2.11"]
                                   [lein-project-version "0.1.0"]]
-                   :source-paths ["src"]}})
+                   :source-paths ["src"]}}
+  :plugins [[lein-project-version "0.1.0"]])
